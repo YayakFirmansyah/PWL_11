@@ -11,6 +11,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -22,7 +23,7 @@ class AuthController extends Controller
         $user       = User::create([
             'name'      => $validated['name'],
             'email'     => $validated['email'],
-            'password'  => $validated['password']
+            'password'  => Hash::make($validated['password'])
         ]);
 
         $token      = $user->createToken('auth_token')->plainTextToken;
